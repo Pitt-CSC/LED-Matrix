@@ -14,6 +14,18 @@ public:
     // Get pointer to the single instance of Receiver.
     static Receiver* GetInstance();
 
+    // Check if the master controller has sent a full screen buffer.
+    static bool ScreenBufferAvailable();
+
+    // Construct a screen buffer from the received data.
+    static ScreenBuffer& GetScreenBuffer();
+
+    // Check if the master controller has sent an init command.
+    static bool InitCommandReceived();
+
+    // Clear the queue of data received from the master.
+    static void ClearSerialQueue();
+
 private:
     // Constructor and destructor kept private to allow
     // one instance.

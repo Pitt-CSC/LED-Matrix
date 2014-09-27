@@ -5,6 +5,7 @@
 ///////////////////////////////////////////////////////////
 
 #include "Receiver.hpp"
+#include "ScreenBuffer.hpp"
 
 // Set the singleton pointer to 0 to show that it has not
 // been initialized.
@@ -22,12 +23,42 @@ Receiver* Receiver::GetInstance()
     return mInstance;
 }
 
+// Check if the required amount of bits have been written to the
+// serial queue.
+bool Receiver::ScreenBufferAvailable()
+{
+}
+
+ScreenBuffer& Receiver::GetScreenBuffer()
+{
+}
+
+bool Receiver::InitCommandReceived()
+{
+}
+
+void Receiver::ClearSerialQueue()
+{
+}
+
+
 /*
- * Example how to use it.
+// Example how to use it.
 int main()
 {
-    Receiver* r = Receiver::GetInstance();
+    Receiver* receiver = Receiver::GetInstance();
+    ScreenBuffer& screenBuffer;
 
-    r->function();
+    while (!receiver->InitCommandReceived());
+
+    receiver->ClearSerialQueue();
+
+    while (true)
+    {
+        if (receiver->ScreenBufferAvailable())
+        {
+            screenBuffer = receiver->GetScreenBuffer();
+        }
+    }
 }
 */
