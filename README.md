@@ -7,4 +7,4 @@ Directory Heirarchy:
 
 Beaglebone/ - All code for the Beaglebone.
 
-MatrixController/ - All code for the Arduino on the LED matrix controller.
+MatrixDriver/ - All code for the Arduino on the LED matrix controller.
