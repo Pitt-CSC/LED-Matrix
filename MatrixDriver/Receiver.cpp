@@ -4,8 +4,8 @@
 // This is the implementation file for the Receiver class.
 ///////////////////////////////////////////////////////////
 
-#include "Receiver.hpp"
-#include "ScreenBuffer.hpp"
+#include "Receiver.h"
+#include "ScreenBuffer.h"
 
 // Set the singleton pointer to 0 to show that it has not
 // been initialized.
@@ -40,25 +40,3 @@ bool Receiver::InitCommandReceived()
 void Receiver::ClearSerialQueue()
 {
 }
-
-
-/*
-// Example how to use it.
-int main()
-{
-    Receiver* receiver = Receiver::GetInstance();
-    ScreenBuffer& screenBuffer;
-
-    while (!receiver->InitCommandReceived());
-
-    receiver->ClearSerialQueue();
-
-    while (true)
-    {
-        if (receiver->ScreenBufferAvailable())
-        {
-            screenBuffer = receiver->GetScreenBuffer();
-        }
-    }
-}
-*/
