@@ -3,6 +3,9 @@
 #
 # This file contains a Python class called ScreenBuffer which holds
 # the pixel color values of a screen.
+#
+# Resources:
+#   BBB UART: https://learn.adafruit.com/setting-up-io-python-library-on-beaglebone-black/uart
 #####################################################################
 
 #!/usr/bin/python
