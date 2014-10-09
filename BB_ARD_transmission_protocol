@@ -23,13 +23,14 @@ Protocol:
 			If # - if step number (#) is succesfully completed
 			BB_ERR, ARD_ERR - any approprate error code
 		It is assumed all reads are blocking on the BB
+		Assume everything is unsigned, unless noted otherwise.
 	INITALIZATION:
 		The BB to ARD connection must be initalized by this proccess.
 		Protocol:
 			1	BB TX BB_INIT_ARD
 			2	ARD IMM TX ARD_CONFIRM
 			3	ARD will preform any initalization actions
-			4	If 3: ARD TX ARD_CONFERERM, else ARD TX ARD_ERR
+			4	If 3: ARD TX ARD_INITED, else ARD TX ARD_ERR
 	ERROR CHECK:
 		BB requests any errors from the ARD.  May include error string
 		Error response structure ERR_RESP
@@ -43,7 +44,27 @@ Protocol:
 			2	If ARD has errors, TX ERR_RESP, else TX
 				 ARD_NO_ERR
 	CLOSE:
-		
+		BB tells ARD to close, turn off matrix, etc.
+		Protocol:
+			1	BB TX BB_CLOSE
+			2	ARD IMM TX ARD_CONFIRM
+	FULL SCREEN TX:
+		BB sends ARD new pixel data for the complete screen.
+		Pixel struct PIX
+			{
+				byte EDATA, Contains "Extra" data on the pixel
+					may be used for blink in the future
+				byte RED,   0 is none, 0xFF is full intensity
+				byte GREEN, 
+				byte BLUE,
+			}
+		Protocol:
+			1 BB TX BB_FULLSCR_TX
+			2 ARD TX ARD_CONFIRM
+			3 BB TX BB_TX_FSCR
+			4 BB TX PIX starting from top left and going right 
+				then down.
+			5 BB TX BB_FSCR_END
 
 Constants:
 	Note: All constants sent by the BeagleBone will be prefixed by BB.
@@ -52,4 +73,22 @@ Constants:
 	 use of these constants will be described elsewhere.
 	All Constants are 8 bits
 	BeagleBone Usage:
-		BB_INIT_ARD = 
+		BB_INIT_ARD 		= 0x01
+		BB_CHECK_ERR 		= 0x02
+		BB_CLOSE		= 0x03
+		BB_FULLSCR_TX		= 0x04
+		BB_TX_FSCR		= 0x05
+		BB_FSCR_END		= 0x06
+
+	Arduino usage:
+		ARD_CONFIRM		= 0x01
+		ARD_INITED		= 0x02
+		ARD_NO_ERR		= 0x03
+
+	Arduino Errors:
+		ARD_MATRIX_FAILURE	= 0x81
+		ARD_BAD_TX		= 0x82 
+
+
+
+
