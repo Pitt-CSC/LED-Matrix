@@ -14,7 +14,24 @@ Protocol:
 		 will generally reply with acknowledgment and confim codes. In
 		 general the BB will start all contact with the ARD.
 	Connection settings:
-		9600 bps, 8 data bits, 0 parity bits, 1 stop bit
+		115200 bps, 8 data bits, 0 parity bits, 1 stop bit
+
+        A single screen buffer has (16 rows of pixels)*(32 columns of pixels)
+        *(3 colors per pixel)*(8 bits per pixel) = 12288 bits of data.
+        Because of this large amount of data, the highest baud rate that
+        the Arduino can support, 115200 bps, is used to minimize latency,
+        resulting in a maximum of (115200 bps)/(12288 bits/frame)
+        = 9.375 frames per second. Note that the actual frame rate will
+        end up being slower since the Arduino and Beaglebone will be performing
+        other processes between each frame buffer transmition.
+
+        If this frame rate turns out to be too slow, another option is to
+        use SPI instead of UART. The fastest Arduino SPI speed is 8 MHz,
+        which would result in a frame rate of (8000000 bps)/(12288 bits/frame)
+        = 651 fps. In order to use the Arduino's SPI, we would need to modify
+        our hardware to break out pins 17-19 of the ATmega328 chip, since the
+        Nootropic board does not break these pins out for us. 
+
 	Note:
 		Abbreviations:
 			TX - Transfer. Data sent over serial connection
