@@ -1,5 +1,6 @@
 #include "Receiver.h"
 #include "ScreenBuffer.h"
+#include "Protocol.h"
 
 Receiver* receiver;
 
@@ -10,15 +11,24 @@ void setup()
 
 void loop()
 {
+    // Wait for master to send initialization command.
     while (!receiver->InitCommandReceived());
 
     receiver->ClearSerialQueue();
 
     while (true)
     {
-        if (receiver->ScreenBufferAvailable())
+        unsigned int cmd;
+
+        cmd = receiver->ReceiveMasterCommand();
+
+        switch (cmd)
         {
-            ScreenBuffer& screenBuffer = receiver->GetScreenBuffer();
+        case BB_FULLSCR_TX:
+            receiver->ReceiveScreenBuffer();
+            receiver->GetScreenBuffer().WriteToScreen();
+            break;
         }
+
     }
 }

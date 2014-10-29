@@ -19,11 +19,17 @@ public:
     // Check if the master controller has sent a full screen buffer.
     static bool ScreenBufferAvailable();
 
-    // Construct a screen buffer from the received data.
-    static ScreenBuffer& GetScreenBuffer();
+    // Return the last received screen buffer.
+    static ScreenBuffer& GetScreenBuffer() { return mInstance->mScreenBuffer; }
+
+    // Receive a screen buffer from the master.
+    static bool ReceiveScreenBuffer();
 
     // Check if the master controller has sent an init command.
     static bool InitCommandReceived();
+
+    // Receive byte-command from master.
+    static unsigned char ReceiveMasterCommand();
 
     // Clear the queue of data received from the master.
     static void ClearSerialQueue();
@@ -31,11 +37,12 @@ public:
 private:
     // Constructor and destructor kept private to allow
     // one instance.
-    Receiver(){};
+    Receiver();
     ~Receiver(){};
 
     // Pointer to the single instance of Receiver.
     static Receiver* mInstance;
+    ScreenBuffer mScreenBuffer;
 };
 
 #endif // #if !defined(RECEIVER_H)
