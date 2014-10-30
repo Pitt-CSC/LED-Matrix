@@ -15,7 +15,6 @@ Receiver* Receiver::mInstance = 0;
 
 Receiver::Receiver()
 {
-    Serial.begin(BAUD_RATE);
 
     for (int y = 0; y < mInstance->mScreenBuffer.Y; y++)
     {

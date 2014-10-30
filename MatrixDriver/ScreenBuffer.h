@@ -1,3 +1,10 @@
+///////////////////////////////////////////////////////////
+// ScreenBuffer.h
+//
+// This file defines a ScreenBuffer struct used to store
+// an entire frame's pixel data.
+///////////////////////////////////////////////////////////
+
 #if !defined(SCREENBUFFER_H)
 #define SCREENBUFFER_H
 
